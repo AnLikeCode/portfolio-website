@@ -176,6 +176,10 @@
                 gap: 10px;
             }
 
+            main {
+            padding-top: 900px; 
+            }
+
             .header-more {
                 display: none;
             }
@@ -195,13 +199,10 @@
     </style>
 
 <script>
-    // Hàm lấy ngẫu nhiên n phần tử từ một mảng
     function getRandomElements(array, n) {
         const shuffled = array.sort(() => 0.5 - Math.random());
         return shuffled.slice(0, n);
     }
-
-    // Hàm lấy nội dung từ file blog
     async function fetchBlogContent(blogFile) {
         try {
             const response = await fetch(`./writeblog/${blogFile}`);
@@ -232,8 +233,6 @@
             };
         }
     }
-
-    // Hàm tạo HTML cho một bài viết blog
     function createBlogPostHTML(blogFile, content) {
         return `
             <article class="card" data-blog="${blogFile}">
@@ -250,22 +249,27 @@
 
 
 
+
+
+
     // Hàm lấy danh sách các file blog
     async function getBlogFiles() {
         // Danh sách cố định các file blog
-        return ['blog1.html',
-                'blog2.html', 
-                'blog3.html',
-                'blog4.html',
+        return ['blog4.html',
+                'blog3.html', 
+                'blog2.html',
+                'blog1.html',
                     
             
                                 ]; // Thêm các file blog khác vào đây
-
-
-        
     }
 
-    // Hàm chính để tải và hiển thị các bài viết blog
+
+
+
+
+
+
     async function loadBlogPosts() {
         const blogFiles = await getBlogFiles();
         const leftColumn = document.querySelector('.left-column');
