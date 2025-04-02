@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tum's Blog - Quantum Computing & Networking</title>
+    <link rel="stylesheet" href="../assets/css/styleforlandingpageblog.css">
+    <link rel="shortcut icon" href="../assets/images/favicon1.jpg" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <!-- Logo -->
+        <div class="header-logo">
+            <a href="../index.html">
+                <img src="../assets/images/hitum1.png" alt="Tum's Logo" />
+            </a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="header-search">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết...">
+                <button type="button" id="searchButton">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- More Information Link -->
+        <a href="#" class="header-link header-more">
+            <i class="fas fa-user"></i> About me
+        </a>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- ============================================
+                 LEFT COLUMN - BLOG POSTS
+                 ============================================ -->
+            <section class="left-column">
+                <!-- Blog posts will be dynamically loaded here -->
+            </section>
+
+            <!-- ============================================
+                 RIGHT COLUMN - SIDEBAR
+                 ============================================ -->
+            <aside class="right-column">
+                <!-- About Me Card -->
+                <div class="card about">
+                    <h2>About Me</h2>
+                    <img src="../assets/images/Thiếtkếchưacótên.jpg" alt="Tum's Profile Picture">
+                    <p>Xin chào! Tôi là An/hay còn gọi là Tum, một người yêu thích công nghệ và đam mê tìm tòi về Máy tính lượng tử. Tôi luôn muốn chia sẻ kiến thức và trải nghiệm của mình thông qua blog này.</p>
+                </div>
+                <div class="card">
+                    <h2>Read Random Posts</h2>
+                    <ul id="randomPostsList">
+                        <!-- Danh sách bài viết sẽ được thêm vào đây động -->
+                    </ul>
+                </div>
+                <div class="card">
+                    <h2>Follow Me</h2>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/tumisquantum">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </a>
+                        <a href="https://www.youtube.com/@tumisquantum">
+                            <i class="fab fa-youtube"></i> Youtube
+                        </a>
+                        <a href="https://github.com/AnLikeCode">
+                            <i class="fab fa-github"></i> Github
+                        </a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Copyright 2025 © AnPnh/tum. All rights reserved.</p>
+    </footer>
+
+    <style>
+        /* Header Search Styles */
+        .header {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 20px;
+            padding: 0.5rem 5%;
+        }
+
+        main {
+            flex: 1 0 auto;
+            padding-top: 120px; /* Tăng từ 100px lên 120px */
+        }
+
+        .header-logo {
+            margin-right: auto;
+        }
+
+        .header-search {
+            max-width: 300px;
+            width: 100%;
+            margin-left: auto;
+        }
+
+        .search-wrapper {
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(14, 165, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-wrapper:focus-within {
+            background: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(14, 165, 234, 0.1);
+        }
+
+        #searchInput {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            outline: none;
+        }
+
+        #searchInput::placeholder {
+            color: var(--light-text);
+        }
+
+        #searchButton {
+            background: transparent;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        #searchButton:hover {
+            background: rgba(14, 165, 234, 0.1);
+            color: var(--secondary-color);
+        }
+
+        /* Hide articles when not matching search */
+        .card.hidden {
+            display: none;
+        }
+
+        /* No results message */
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--light-text);
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .header-search {
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                grid-template-columns: auto 1fr;
+                gap: 10px;
+            }
+
+            .header-more {
+                display: none;
+            }
+
+            .header-search {
+                max-width: none;
+            }
+
+            .search-wrapper {
+                padding: 6px 12px;
+            }
+
+            #searchInput {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+
+<script>
+    // Hàm lấy ngẫu nhiên n phần tử từ một mảng
+    function getRandomElements(array, n) {
+        const shuffled = array.sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, n);
+    }
+
+    // Hàm lấy nội dung từ file blog
+    async function fetchBlogContent(blogFile) {
+        try {
+            const response = await fetch(`./writeblog/${blogFile}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const title = doc.querySelector('.blog-header h1')?.textContent || 'Không có tiêu đề';
+            const date = doc.querySelector('.blog-meta .date')?.textContent || 'Không có ngày đăng';
+            const paragraphs = doc.querySelectorAll('.blog-content p');
+            const excerpt = paragraphs.length > 0 ? paragraphs[0].textContent : 'Không có nội dung...';
+            
+            // Thêm logic để đọc thumbnail từ meta tag
+            const thumbnailMeta = doc.querySelector('meta[name="blog-thumbnail"]');
+            const image = thumbnailMeta ? thumbnailMeta.getAttribute('content') : 
+                         (doc.querySelector('.blog-content img')?.src || '../assets/images/nền_labtop.jpg');
+            
+            return { title, date, excerpt, image };
+        } catch (error) {
+            console.error(`Error fetching ${blogFile}:`, error);
+            return { 
+                title: 'Không thể tải tiêu đề...', 
+                date: 'Không thể tải ngày đăng...',
+                excerpt: 'Không thể tải nội dung...',
+                image: '../assets/images/nền_labtop.jpg'
+            };
+        }
+    }
+
+    // Hàm tạo HTML cho một bài viết blog
+    function createBlogPostHTML(blogFile, content) {
+        return `
+            <article class="card" data-blog="${blogFile}">
+                <img src="${content.image}" alt="${content.title}">
+                <h2 class="blog-title">${content.title}</h2>
+                <p class="date">${content.date}</p>
+                <p class="excerpt">${content.excerpt.substring(0, 150)}...</p>
+                <a class="read" href="./writeblog/${blogFile}">
+                    <i class="fas fa-arrow-right"></i> Read More
+                </a>
+            </article>
+        `;
+    }
+
+
+
+    // Hàm lấy danh sách các file blog
+    async function getBlogFiles() {
+        // Danh sách cố định các file blog
+        return ['blog1.html',
+                'blog2.html', 
+                'blog3.html',
+                'blog4.html',
+                    
+            
+                                ]; // Thêm các file blog khác vào đây
+
+
+        
+    }
+
+    // Hàm chính để tải và hiển thị các bài viết blog
+    async function loadBlogPosts() {
+        const blogFiles = await getBlogFiles();
+        const leftColumn = document.querySelector('.left-column');
+        
+        // Tải nội dung cho mỗi file blog
+        for (const blogFile of blogFiles) {
+            try {
+                const content = await fetchBlogContent(blogFile);
+                const blogPostHTML = createBlogPostHTML(blogFile, content);
+                leftColumn.insertAdjacentHTML('beforeend', blogPostHTML);
+            } catch (error) {
+                console.error(`Error loading ${blogFile}:`, error);
+                // Bỏ qua file không tải được
+                continue;
+            }
+        }
+
+        // Lấy tất cả các bài viết blog đã tải thành công
+        const blogPosts = Array.from(document.querySelectorAll('.left-column .card')).map(card => ({
+            titleElement: card.querySelector('.blog-title'),
+            dateElement: card.querySelector('.date'),
+            excerpt: card.querySelector('.excerpt'),
+            link: card.querySelector('a.read').href,
+            blogFile: card.dataset.blog
+        }));
+
+        // Chỉ cập nhật Popular Posts nếu có bài viết
+        if (blogPosts.length > 0) {
+            // Chọn ngẫu nhiên 3 bài viết cho Popular Posts
+            const randomPosts = getRandomElements(blogPosts, Math.min(3, blogPosts.length));
+
+            // Cập nhật phần Popular Posts
+            const popularPostsList = document.querySelector('.right-column ul');
+            popularPostsList.innerHTML = randomPosts.map(post => `
+                <li><a href="${post.link}">${post.titleElement.textContent}</a></li>
+            `).join('');
+        }
+
+        return blogPosts;
+    }
+
+    // Hàm tìm kiếm bài viết
+    function searchBlogPosts(searchTerm) {
+        const articles = document.querySelectorAll('.left-column .card');
+        const searchTermLower = searchTerm.toLowerCase().trim();
+        let hasResults = false;
+
+        // Xóa thông báo "không tìm thấy" cũ nếu có
+        const oldNoResultsMessage = document.querySelector('.no-results');
+        if (oldNoResultsMessage) {
+            oldNoResultsMessage.remove();
+        }
+
+        // Nếu không có từ khóa tìm kiếm, hiển thị tất cả bài viết
+        if (!searchTermLower) {
+            articles.forEach(article => article.classList.remove('hidden'));
+            return;
+        }
+
+        articles.forEach(article => {
+            const title = article.querySelector('.blog-title')?.textContent.toLowerCase() || '';
+            const excerpt = article.querySelector('.excerpt')?.textContent.toLowerCase() || '';
+            const date = article.querySelector('.date')?.textContent.toLowerCase() || '';
+            
+            // Tìm kiếm trong tiêu đề, đoạn trích và ngày đăng
+            if (title.includes(searchTermLower) || 
+                excerpt.includes(searchTermLower) || 
+                date.includes(searchTermLower)) {
+                article.classList.remove('hidden');
+                hasResults = true;
+            } else {
+                article.classList.add('hidden');
+            }
+        });
+
+        // Hiển thị thông báo khi không có kết quả
+        if (!hasResults) {
+            const noResultsMessage = document.createElement('div');
+            noResultsMessage.className = 'no-results';
+            noResultsMessage.innerHTML = `
+                <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                <p>Không tìm thấy bài viết nào phù hợp với "${searchTerm}"</p>
+            `;
+            document.querySelector('.left-column').appendChild(noResultsMessage);
+        }
+    }
+
+    // Thêm sự kiện tìm kiếm
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+
+        // Tìm kiếm khi nhấn nút
+        searchButton.addEventListener('click', () => {
+            searchBlogPosts(searchInput.value);
+        });
+
+        // Tìm kiếm khi nhấn Enter
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchBlogPosts(searchInput.value);
+            }
+        });
+
+        // Tìm kiếm khi gõ (với debounce)
+        let searchTimeout;
+        searchInput.addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                searchBlogPosts(searchInput.value);
+            }, 230); // Đợi 300ms sau khi người dùng ngừng gõ
+        });
+
+        // Load blog posts và thực hiện tìm kiếm nếu có từ khóa
+        loadBlogPosts().then(() => {
+            if (searchInput.value.trim()) {
+                searchBlogPosts(searchInput.value);
+            }
+        });
+    });
+
+    // Danh sách tất cả các bài viết
+    const allPosts = [
+        {
+            title: "Máy tính lượng tử là gì?",
+            url: "./writeblog/blog1.html"
+        },
+        {
+            title: "Bảo mật mạng trong thời đại số",
+            url: "./writeblog/blog2.html"
+        },
+        {
+            title: "Xu hướng công nghệ 2024",
+            url: "./writeblog/blog3.html"
+        },
+        // Thêm các bài viết khác vào đây
+    ];
+
+    // Hàm lấy ngẫu nhiên n phần tử từ một mảng
+    function getRandomPosts(array, n) {
+        const shuffled = [...array].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, n);
+    }
+
+    // Hàm hiển thị các bài viết ngẫu nhiên
+    function displayRandomPosts() {
+        const randomPostsList = document.getElementById('randomPostsList');
+        const randomPosts = getRandomPosts(allPosts, 3); // Lấy 3 bài viết ngẫu nhiên
+
+        randomPostsList.innerHTML = randomPosts.map(post => `
+            <li>
+                <a href="${post.url}">${post.title}</a>
+            </li>
+        `).join('');
+    }
+
+    // Gọi hàm khi trang web được tải
+    document.addEventListener('DOMContentLoaded', displayRandomPosts);
+</script>
+
+</body>
+</html>
